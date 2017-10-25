@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="VATAduana.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="VATAduana_wslpg_LpgService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://fwshomo.afip.gov.ar:443/wslpg/LpgService</Value>
+    </Setting>
+    <Setting Name="VATAduana_wsaa_LoginCMSService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://wsaahomo.afip.gov.ar/ws/services/LoginCms</Value>
+    </Setting>
+    <Setting Name="VATAduana_wconsdeclaracion_wconsdeclaracion" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://wsaduhomoext.afip.gob.ar/diav2/wconsdeclaracion/wconsdeclaracion.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

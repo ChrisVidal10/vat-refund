@@ -1,0 +1,1721 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="Ar.Gob.Afip.Dga.wconsdeclaracion" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="Ar.Gob.Afip.Dga.wconsdeclaracion" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Consultas MOA referentes a los circuitos de Declaracion.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="Ar.Gob.Afip.Dga.wconsdeclaracion">
+      <s:element name="BloqueosLista">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="argWSAutenticacionEmpresa" type="tns:WSAutenticacionEmpresa" />
+            <s:element minOccurs="0" maxOccurs="1" name="argBloqueosListaParam" type="tns:BloqueosListaParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="WSAutenticacionEmpresa">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:WSAutenticacion">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="CuitEmpresaConectada" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TipoAgente" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Rol" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="WSAutenticacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sign" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BloqueosListaParam">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CuitImportadorExportador" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuitDespachante" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorDeclaracion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaOficializacionDesde" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaOficializacionHasta" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoAduanaRegistro" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoTipoOperacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoSubregimen" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoTipoBloqueo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IndicadorBloqueoAutorizado" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BloqueosListaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BloqueosListaResult" type="tns:BloqueosListaRta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BloqueosListaRta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ResultadoEjecucion">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Destinaciones" type="tns:ArrayOfItemBloqueosLista" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ResultadoEjecucion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ListaErrores" type="tns:ArrayOfDgaMensajeSistemaReducido" />
+          <s:element minOccurs="0" maxOccurs="1" name="Server" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TimeStamp" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDgaMensajeSistemaReducido">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DetalleError" nillable="true" type="tns:DgaMensajeSistemaReducido" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DgaMensajeSistemaReducido">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Codigo" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DescripcionAdicional" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfItemBloqueosLista">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Destinacion" nillable="true" type="tns:ItemBloqueosLista" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ItemBloqueosLista">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorDeclaracion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuitImportadorExportador" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuitDespachante" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaOficializacion" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoEstado" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaEstado" nillable="true" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BloqueosIntervenciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="argWSAutenticacionEmpresa" type="tns:WSAutenticacionEmpresa" />
+            <s:element minOccurs="0" maxOccurs="1" name="argIdentificadorDestinacion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BloqueosIntervencionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BloqueosIntervencionesResult" type="tns:BloqueosIntervencionesRta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BloqueosIntervencionesRta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ResultadoEjecucion">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Bloqueos" type="tns:ArrayOfItemBloqueosIntervenciones" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfItemBloqueosIntervenciones">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Bloqueo" nillable="true" type="tns:ItemBloqueosIntervenciones" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ItemBloqueosIntervenciones">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Bloqueo">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="DescripcionCodigoMotivo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EstadoMotivoBloqueo" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Bloqueo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoMotivo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaBloqueo" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaFinBloqueo" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaRechazo" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="ObservacionesRechazo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DetalladaListaDeclaraciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="argWSAutenticacionEmpresa" type="tns:WSAutenticacionEmpresa" />
+            <s:element minOccurs="0" maxOccurs="1" name="argDetalladasListaParams" type="tns:DetalladaListaDeclaracionesParams" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DetalladaListaDeclaracionesParams">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorDeclaracion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuitImportadorExportador" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuitDespachante" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoAduanaRegistro" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoSubregimen" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaOficializacionDesde" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaOficializacionHasta" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoEstadoDeclaracion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoTipoOperacion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DetalladaListaDeclaracionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DetalladaListaDeclaracionesResult" type="tns:DetalladaListaDeclaracionesRta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DetalladaListaDeclaracionesRta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ResultadoEjecucion">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Declaraciones" type="tns:ArrayOfDeclaracionDetalladaMOAListaDeclaraciones" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfDeclaracionDetalladaMOAListaDeclaraciones">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Declaracion" nillable="true" type="tns:DeclaracionDetalladaMOAListaDeclaraciones" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DeclaracionDetalladaMOAListaDeclaraciones">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorExterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuitImportadorExportador" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuitDespachante" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaOficializacion" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoEstadoDeclaracion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FechaEstado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoViaTransporte" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MatriculaMedioTransporte" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DetalladaCaratula">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="argWSAutenticacionEmpresa" type="tns:WSAutenticacionEmpresa" />
+            <s:element minOccurs="0" maxOccurs="1" name="argIdentificadorDestinacion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DetalladaCaratulaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DetalladaCaratulaResult" type="tns:DetalladaCaratulaRta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DetalladaCaratulaRta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ResultadoEjecucion">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Caratula" type="tns:DeclaracionDetalladaMOACaratula" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="DeclaracionDetalladaMOACaratula">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CanalSeleccion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreProveedorDestinatario" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CondicionDeVenta" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MontoFobTotal" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoMonedaFobTotal" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MontoFleteTotal" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoMonedaFlete" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MontoSeguroTotal" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoMonedaSeguro" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorManifiesto" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoDocumentoTransporte" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuitAgenteDeTransporte" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaVencimientoTemporal" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaArriboMercaderia" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="TotalBultos" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PesoBruto" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="PesoGuia" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="MotivoAnulacion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DetalladaEstado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="argWSAutenticacionEmpresa" type="tns:WSAutenticacionEmpresa" />
+            <s:element minOccurs="0" maxOccurs="1" name="argIdentificadorDestinacion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DetalladaEstadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DetalladaEstadoResult" type="tns:DetalladaEstadoRta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DetalladaEstadoRta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ResultadoEjecucion">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Estado" type="tns:DeclaracionDetalladaMOAEstado" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="DeclaracionDetalladaMOAEstado">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="FechaPresentacion" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaAutorizacionRetiro" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaSalida" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaCancelacion" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaOficializacionPermisoEmbarqueOriginal" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaPresentacionPermisoEmbarqueOriginal" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaPrecumplido" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaRegistracionCumplido" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaLibramientoCumplido" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaVencimientoEmbarque" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="IndicadorPrecumplido" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IndicadorCumplido" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IndicadorControlUnidadesConforme" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DetalladaItems">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="argWSAutenticacionEmpresa" type="tns:WSAutenticacionEmpresa" />
+            <s:element minOccurs="0" maxOccurs="1" name="argIdentificadorDestinacion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DetalladaItemsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DetalladaItemsResult" type="tns:DetalladaItemsRta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DetalladaItemsRta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ResultadoEjecucion">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfItemMOADeclaracionDetalladaItem" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfItemMOADeclaracionDetalladaItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Item" nillable="true" type="tns:ItemMOADeclaracionDetalladaItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ItemMOADeclaracionDetalladaItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorItem" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PosicionArancelariaSIM" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoPaisOrigen" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoPaisProcedencia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EstadoUsoMercaderia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoAcuerdo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoUnidadDeclarada" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CantidadUnidadDeclarada" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoUnidadEstadistica" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CantidadEstadistica" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MontoUnitario" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MontoFobDivisa" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MontoAjusteIncluirDolar" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MontoAjusteDeducirDolar" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MontoInsumosImportacionTemporal" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MontoInsumosImportacionAConsumo" nillable="true" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DetalladaSubitem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="argWSAutenticacionEmpresa" type="tns:WSAutenticacionEmpresa" />
+            <s:element minOccurs="0" maxOccurs="1" name="argDetalladaSubitem" type="tns:DetalladaSubitemsParams" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DetalladaSubitemsParams">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorDestinacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorItem" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DetalladaSubitemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DetalladaSubitemResult" type="tns:DetalladaSubitemRta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DetalladaSubitemRta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ResultadoEjecucion">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Subitems" type="tns:ArrayOfSubItemMOADeclaracionDetalladaSubitem" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfSubItemMOADeclaracionDetalladaSubitem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Subitem" nillable="true" type="tns:SubItemMOADeclaracionDetalladaSubitem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SubItemMOADeclaracionDetalladaSubitem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroSubItem" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SufijoValor" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoUnidadDeclarada" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CantidadDeclarada" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoUnidadEstadistica" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CantidadEstadistica" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="PrecioUnitario" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MontoFobDolar" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DetalladaDocumentos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="argWSAutenticacionEmpresa" type="tns:WSAutenticacionEmpresa" />
+            <s:element minOccurs="0" maxOccurs="1" name="argIdentificadorDestinacion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DetalladaDocumentosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DetalladaDocumentosResult" type="tns:DetalladaDocumentosRta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DetalladaDocumentosRta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ResultadoEjecucion">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Documentos" type="tns:ArrayOfDocumentoDeclaradoMOADeclaracionDetalladaDocumentos" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfDocumentoDeclaradoMOADeclaracionDetalladaDocumentos">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Documento" nillable="true" type="tns:DocumentoDeclaradoMOADeclaracionDetalladaDocumentos" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DocumentoDeclaradoMOADeclaracionDetalladaDocumentos">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroItem" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoDeDocumentos" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Referencia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PresenciaDocumento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PresenciaReal" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FechaPresentacion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DetalladaOtrosDatos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="argWSAutenticacionEmpresa" type="tns:WSAutenticacionEmpresa" />
+            <s:element minOccurs="0" maxOccurs="1" name="argDetalladaOtrosDatos" type="tns:DetalladaOtrosDatosParams" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DetalladaOtrosDatosParams">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorDestinacion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdentificadorItem" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DetalladaOtrosDatosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DetalladaOtrosDatosResult" type="tns:DetalladaOtrosDatosRta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DetalladaOtrosDatosRta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ResultadoEjecucion">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="OtrosDatos" type="tns:OtrosDatos" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="OtrosDatos">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DatosComplementarios" type="tns:ArrayOfDatoComplementarioMOADeclaracionDetalladaOtrosDatos" />
+          <s:element minOccurs="0" maxOccurs="1" name="Opciones" type="tns:ArrayOfDatoComplementarioMOADeclaracionDetalladaOtrosDatos1" />
+          <s:element minOccurs="0" maxOccurs="1" name="Textos" type="tns:ArrayOfDatoComplementarioMOADeclaracionDetalladaOtrosDatos2" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ventajas" type="tns:ArrayOfDatoComplementarioMOADeclaracionDetalladaOtrosDatos3" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDatoComplementarioMOADeclaracionDetalladaOtrosDatos">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DatoComplementario" nillable="true" type="tns:DatoComplementarioMOADeclaracionDetalladaOtrosDatos" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DatoComplementarioMOADeclaracionDetalladaOtrosDatos">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoDato" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Referencia" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDatoComplementarioMOADeclaracionDetalladaOtrosDatos1">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Opcion" nillable="true" type="tns:DatoComplementarioMOADeclaracionDetalladaOtrosDatos" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDatoComplementarioMOADeclaracionDetalladaOtrosDatos2">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Texto" nillable="true" type="tns:DatoComplementarioMOADeclaracionDetalladaOtrosDatos" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDatoComplementarioMOADeclaracionDetalladaOtrosDatos3">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Ventajas" nillable="true" type="tns:DatoComplementarioMOADeclaracionDetalladaOtrosDatos" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SimiDjaiListaDeclaraciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="argWSAutenticacionEmpresa" type="tns:WSAutenticacionEmpresa" />
+            <s:element minOccurs="0" maxOccurs="1" name="argSimiDjaiListaParams" type="tns:SimiDjaiListaDeclaracionesParams" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SimiDjaiListaDeclaracionesParams">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorExterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuitImportadorExportador" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuitDespachante" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaOficializacionDesde" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaOficializacionHasta" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoEstadoDeclaracion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoAduanaRegistro" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SimiDjaiListaDeclaracionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SimiDjaiListaDeclaracionesResult" type="tns:SimiDjaiListaDeclaracionesRta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SimiDjaiListaDeclaracionesRta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ResultadoEjecucion">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Declaraciones" type="tns:ArrayOfDeclaracionDetalladaMOASimiDjaiListaDeclaraciones" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfDeclaracionDetalladaMOASimiDjaiListaDeclaraciones">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DeclaracionDetallada" nillable="true" type="tns:DeclaracionDetalladaMOASimiDjaiListaDeclaraciones" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DeclaracionDetalladaMOASimiDjaiListaDeclaraciones">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorExterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuitImportadorExportador" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuitDespachante" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaOficializacion" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaVencimientoSuspensiva" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoAduanaRegistro" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoEstadoDeclaracion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaEstado" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoViaTransporte" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MatriculaMedioTransporte" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IndicadorCantidadPendienteCancelacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoImportacionExportacion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SimiDjaiItems">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="argWSAutenticacionEmpresa" type="tns:WSAutenticacionEmpresa" />
+            <s:element minOccurs="0" maxOccurs="1" name="argSimiDjaiItemsParams" type="tns:SimiDjaiItemsParams" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SimiDjaiItemsParams">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorExterno" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SimiDjaiItemsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SimiDjaiItemsResult" type="tns:SimiDjaiItemsRta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SimiDjaiItemsRta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ResultadoEjecucion">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfItemMOASimiDjaiItem" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfItemMOASimiDjaiItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Item" nillable="true" type="tns:ItemMOASimiDjaiItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ItemMOASimiDjaiItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorItem" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PosicionArancelariaSIM" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoUnidadDeclarada" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CantidadUnidadDeclarada" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Saldo" nillable="true" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SimiDjaiSubitems">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="argWSAutenticacionEmpresa" type="tns:WSAutenticacionEmpresa" />
+            <s:element minOccurs="0" maxOccurs="1" name="argSimiDjaiSubitemsParams" type="tns:SimiDjaiSubitemsParams" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SimiDjaiSubitemsParams">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorExterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorExternoItem" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SimiDjaiSubitemsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SimiDjaiSubitemsResult" type="tns:SimiDjaiSubitemsRta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SimiDjaiSubitemsRta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ResultadoEjecucion">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Subitems" type="tns:ArrayOfSubitemMOASimiDjaiSubitem" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfSubitemMOASimiDjaiSubitem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Subitem" nillable="true" type="tns:SubitemMOASimiDjaiSubitem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SubitemMOASimiDjaiSubitem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorExternoItem" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorSubItem" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CantidadDeclarada" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Saldo" nillable="true" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SimiDjaiCancelaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="argWSAutenticacionEmpresa" type="tns:WSAutenticacionEmpresa" />
+            <s:element minOccurs="0" maxOccurs="1" name="argSimiDjaiCancelacionesParams" type="tns:SimiDjaiCancelacionesParams" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SimiDjaiCancelacionesParams">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorExterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorExternoItem" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorSubItem" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SimiDjaiCancelacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SimiDjaiCancelacionesResult" type="tns:SimiDjaiCancelacionesRta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SimiDjaiCancelacionesRta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ResultadoEjecucion">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Cancelaciones" type="tns:ArrayOfCancelacionMOASimiDjaiCancelacion" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfCancelacionMOASimiDjaiCancelacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Cancelacion" nillable="true" type="tns:CancelacionMOASimiDjaiCancelacion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CancelacionMOASimiDjaiCancelacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorDeclaracion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumeroItem" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumeroSubitem" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorDestinacion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumeroItemDestinacion" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumeroSubitemDestinacion" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaOficializacionDestinacion" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cantidad" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoEstadoDeclaracion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaEstado" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DestinacionesExpoCumplidasLista">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="argWSAutenticacionEmpresa" type="tns:WSAutenticacionEmpresa" />
+            <s:element minOccurs="0" maxOccurs="1" name="argDestExpoCumplidasListaParams" type="tns:DestinacionesExpoCumplidasListaParams" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DestinacionesExpoCumplidasListaParams">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorExterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuitImportadorExportador" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuitDespachante" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaOficializacionDesde" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaOficializacionHasta" nillable="true" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DestinacionesExpoCumplidasListaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DestinacionesExpoCumplidasListaResult" type="tns:DestinacionesExpoCumplidasListaRta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DestinacionesExpoCumplidasListaRta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ResultadoEjecucion">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Declaraciones" type="tns:ArrayOfDeclaracionDetalladaMOADestinacionesExpoCumplidasLista" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfDeclaracionDetalladaMOADestinacionesExpoCumplidasLista">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Declaracion" nillable="true" type="tns:DeclaracionDetalladaMOADestinacionesExpoCumplidasLista" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DeclaracionDetalladaMOADestinacionesExpoCumplidasLista">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorExterno" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaOficializacion" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaCumplido" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="IndicadorCumplido" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ControlUnidadesConforme" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoEstadoDeclaracion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PENListaNovedades">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="argWSAutenticacionEmpresa" type="tns:WSAutenticacionEmpresa" />
+            <s:element minOccurs="0" maxOccurs="1" name="argNovedadElectronicaListaParams" type="tns:NovedadElectronicaListaParams" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="NovedadElectronicaListaParams">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Identificador" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuitEmpresa" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PENListaNovedadesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PENListaNovedadesResult" type="tns:NovedadElectronicaListaRta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="NovedadElectronicaListaRta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ResultadoEjecucion">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ListaNovedadesElectronicas" type="tns:ArrayOfNovedadesMOAPEN" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfNovedadesMOAPEN">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="NovedadElectronica" nillable="true" type="tns:NovedadesMOAPEN" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="NovedadesMOAPEN">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FechaRegistro" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UsuarioRegistro" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Categoria" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IndicadorNotificacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FechaNotificacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Visibilidad" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TextoNovedad" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Intervenciones3OrgLista">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="argWSAutenticacionEmpresa" type="tns:WSAutenticacionEmpresa" />
+            <s:element minOccurs="0" maxOccurs="1" name="argIntervenciones3OrgListaParam" type="tns:Intervenciones3OrgListaParams" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Intervenciones3OrgListaParams">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CuitImportadorExportador" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuitDespachante" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorDeclaracion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaOficializacionDesde" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaOficializacionHasta" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoAduanaRegistro" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoTipoOperacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoSubregimen" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Intervenciones3OrgListaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Intervenciones3OrgListaResult" type="tns:Intervenciones3OrgListaRta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Intervenciones3OrgListaRta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ResultadoEjecucion">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Intervenciones" type="tns:ArrayOfDestinacionIntervencion" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfDestinacionIntervencion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Intervencion" nillable="true" type="tns:DestinacionIntervencion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DestinacionIntervencion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorDestinacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuitImportadorExportador" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuitDespachante" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaOficializacion" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoEstado" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaVencimiento" nillable="true" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Intervencion3OrgDetalle">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="argWSAutenticacionEmpresa" type="tns:WSAutenticacionEmpresa" />
+            <s:element minOccurs="0" maxOccurs="1" name="argIdentificadorDestinacion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Intervencion3OrgDetalleResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Intervencion3OrgDetalleResult" type="tns:Intervencion3OrgDetalleRta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Intervencion3OrgDetalleRta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ResultadoEjecucion">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="IntervencionesDetalle" type="tns:ArrayOfDestinacionIntervencionDetalleItem" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfDestinacionIntervencionDetalleItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Destinacion" nillable="true" type="tns:DestinacionIntervencionDetalleItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DestinacionIntervencionDetalleItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoIntervencion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoEstado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FechaAutoObs" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SuspensivasListaDeclaraciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="argWSAutenticacionEmpresa" type="tns:WSAutenticacionEmpresa" />
+            <s:element minOccurs="0" maxOccurs="1" name="argSuspensivasListaDeclaracionesParams" type="tns:SuspensivasListaDeclaracionesParams" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SuspensivasListaDeclaracionesParams">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CuitImportadorExportador" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuitDespachante" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorDeclaracion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaOficializacionDesde" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaOficializacionHasta" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoAduanaRegistro" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoTipoOperacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoSubregimen" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SuspensivasListaDeclaracionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SuspensivasListaDeclaracionesResult" type="tns:SuspensivasListaDeclaracionesRta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SuspensivasListaDeclaracionesRta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ResultadoEjecucion">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ListaSuspensivas" type="tns:ArrayOfDeclaracion" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfDeclaracion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Declaracion" nillable="true" type="tns:Declaracion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Declaracion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Iddtext" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuitImex" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuitDesp" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RazonSocialImex" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RazonSocialDesp" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaOfic" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaVencimiento" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="CantidadPendiente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Aduana" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AduanaDesc" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SuspensivasItems">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="argWSAutenticacionEmpresa" type="tns:WSAutenticacionEmpresa" />
+            <s:element minOccurs="0" maxOccurs="1" name="argSuspensivasItemsParams" type="tns:SuspensivasItemsParams" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SuspensivasItemsParams">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorDeclaracion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SuspensivasItemsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SuspensivasItemsResult" type="tns:SuspensivasItemsRta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SuspensivasItemsRta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ResultadoEjecucion">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfItem" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Item" nillable="true" type="tns:Item" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Item">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroItem" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NCM" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UM" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodUM" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DescUM" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cantidad" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Saldo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SuspensivasSubitems">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="argWSAutenticacionEmpresa" type="tns:WSAutenticacionEmpresa" />
+            <s:element minOccurs="0" maxOccurs="1" name="argSuspensivasSubitems" type="tns:SuspensivasSubitemsParams" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SuspensivasSubitemsParams">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorDeclaracion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroItem" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SuspensivasSubitemsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SuspensivasSubitemsResult" type="tns:SuspensivasSubitemsRta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SuspensivasSubitemsRta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ResultadoEjecucion">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="SubItems" type="tns:ArrayOfSubitem" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfSubitem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Subitem" nillable="true" type="tns:Subitem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Subitem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroItem" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroSubitem" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cantidad" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Saldo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SuspensivasCancelaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="argWSAutenticacionEmpresa" type="tns:WSAutenticacionEmpresa" />
+            <s:element minOccurs="0" maxOccurs="1" name="argSuspensivasCancelacionesParams" type="tns:SuspensivasCancelacionesParams" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SuspensivasCancelacionesParams">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdentificadorDeclaracion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroItem" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroSubItem" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SuspensivasCancelacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SuspensivasCancelacionesResult" type="tns:SuspensivasCancelacionesRta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SuspensivasCancelacionesRta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ResultadoEjecucion">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Cancelaciones" type="tns:ArrayOfCancelacion" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfCancelacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Cancelacion" nillable="true" type="tns:Cancelacion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Cancelacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Definitiva" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroItem" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroSubitem" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaOficializacion" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaPrecumplido" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaLibramiento" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Factor" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CTC" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cantidad" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Dummy">
+        <s:complexType />
+      </s:element>
+      <s:element name="DummyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DummyResult" type="tns:ResultadoEjecucionDummy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResultadoEjecucionDummy">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AppServer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DbServer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AuthServer" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="BloqueosListaSoapIn">
+    <wsdl:part name="parameters" element="tns:BloqueosLista" />
+  </wsdl:message>
+  <wsdl:message name="BloqueosListaSoapOut">
+    <wsdl:part name="parameters" element="tns:BloqueosListaResponse" />
+  </wsdl:message>
+  <wsdl:message name="BloqueosIntervencionesSoapIn">
+    <wsdl:part name="parameters" element="tns:BloqueosIntervenciones" />
+  </wsdl:message>
+  <wsdl:message name="BloqueosIntervencionesSoapOut">
+    <wsdl:part name="parameters" element="tns:BloqueosIntervencionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="DetalladaListaDeclaracionesSoapIn">
+    <wsdl:part name="parameters" element="tns:DetalladaListaDeclaraciones" />
+  </wsdl:message>
+  <wsdl:message name="DetalladaListaDeclaracionesSoapOut">
+    <wsdl:part name="parameters" element="tns:DetalladaListaDeclaracionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="DetalladaCaratulaSoapIn">
+    <wsdl:part name="parameters" element="tns:DetalladaCaratula" />
+  </wsdl:message>
+  <wsdl:message name="DetalladaCaratulaSoapOut">
+    <wsdl:part name="parameters" element="tns:DetalladaCaratulaResponse" />
+  </wsdl:message>
+  <wsdl:message name="DetalladaEstadoSoapIn">
+    <wsdl:part name="parameters" element="tns:DetalladaEstado" />
+  </wsdl:message>
+  <wsdl:message name="DetalladaEstadoSoapOut">
+    <wsdl:part name="parameters" element="tns:DetalladaEstadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="DetalladaItemsSoapIn">
+    <wsdl:part name="parameters" element="tns:DetalladaItems" />
+  </wsdl:message>
+  <wsdl:message name="DetalladaItemsSoapOut">
+    <wsdl:part name="parameters" element="tns:DetalladaItemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="DetalladaSubitemSoapIn">
+    <wsdl:part name="parameters" element="tns:DetalladaSubitem" />
+  </wsdl:message>
+  <wsdl:message name="DetalladaSubitemSoapOut">
+    <wsdl:part name="parameters" element="tns:DetalladaSubitemResponse" />
+  </wsdl:message>
+  <wsdl:message name="DetalladaDocumentosSoapIn">
+    <wsdl:part name="parameters" element="tns:DetalladaDocumentos" />
+  </wsdl:message>
+  <wsdl:message name="DetalladaDocumentosSoapOut">
+    <wsdl:part name="parameters" element="tns:DetalladaDocumentosResponse" />
+  </wsdl:message>
+  <wsdl:message name="DetalladaOtrosDatosSoapIn">
+    <wsdl:part name="parameters" element="tns:DetalladaOtrosDatos" />
+  </wsdl:message>
+  <wsdl:message name="DetalladaOtrosDatosSoapOut">
+    <wsdl:part name="parameters" element="tns:DetalladaOtrosDatosResponse" />
+  </wsdl:message>
+  <wsdl:message name="SimiDjaiListaDeclaracionesSoapIn">
+    <wsdl:part name="parameters" element="tns:SimiDjaiListaDeclaraciones" />
+  </wsdl:message>
+  <wsdl:message name="SimiDjaiListaDeclaracionesSoapOut">
+    <wsdl:part name="parameters" element="tns:SimiDjaiListaDeclaracionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="SimiDjaiItemsSoapIn">
+    <wsdl:part name="parameters" element="tns:SimiDjaiItems" />
+  </wsdl:message>
+  <wsdl:message name="SimiDjaiItemsSoapOut">
+    <wsdl:part name="parameters" element="tns:SimiDjaiItemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SimiDjaiSubitemsSoapIn">
+    <wsdl:part name="parameters" element="tns:SimiDjaiSubitems" />
+  </wsdl:message>
+  <wsdl:message name="SimiDjaiSubitemsSoapOut">
+    <wsdl:part name="parameters" element="tns:SimiDjaiSubitemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SimiDjaiCancelacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:SimiDjaiCancelaciones" />
+  </wsdl:message>
+  <wsdl:message name="SimiDjaiCancelacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:SimiDjaiCancelacionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="DestinacionesExpoCumplidasListaSoapIn">
+    <wsdl:part name="parameters" element="tns:DestinacionesExpoCumplidasLista" />
+  </wsdl:message>
+  <wsdl:message name="DestinacionesExpoCumplidasListaSoapOut">
+    <wsdl:part name="parameters" element="tns:DestinacionesExpoCumplidasListaResponse" />
+  </wsdl:message>
+  <wsdl:message name="PENListaNovedadesSoapIn">
+    <wsdl:part name="parameters" element="tns:PENListaNovedades" />
+  </wsdl:message>
+  <wsdl:message name="PENListaNovedadesSoapOut">
+    <wsdl:part name="parameters" element="tns:PENListaNovedadesResponse" />
+  </wsdl:message>
+  <wsdl:message name="Intervenciones3OrgListaSoapIn">
+    <wsdl:part name="parameters" element="tns:Intervenciones3OrgLista" />
+  </wsdl:message>
+  <wsdl:message name="Intervenciones3OrgListaSoapOut">
+    <wsdl:part name="parameters" element="tns:Intervenciones3OrgListaResponse" />
+  </wsdl:message>
+  <wsdl:message name="Intervencion3OrgDetalleSoapIn">
+    <wsdl:part name="parameters" element="tns:Intervencion3OrgDetalle" />
+  </wsdl:message>
+  <wsdl:message name="Intervencion3OrgDetalleSoapOut">
+    <wsdl:part name="parameters" element="tns:Intervencion3OrgDetalleResponse" />
+  </wsdl:message>
+  <wsdl:message name="SuspensivasListaDeclaracionesSoapIn">
+    <wsdl:part name="parameters" element="tns:SuspensivasListaDeclaraciones" />
+  </wsdl:message>
+  <wsdl:message name="SuspensivasListaDeclaracionesSoapOut">
+    <wsdl:part name="parameters" element="tns:SuspensivasListaDeclaracionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="SuspensivasItemsSoapIn">
+    <wsdl:part name="parameters" element="tns:SuspensivasItems" />
+  </wsdl:message>
+  <wsdl:message name="SuspensivasItemsSoapOut">
+    <wsdl:part name="parameters" element="tns:SuspensivasItemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SuspensivasSubitemsSoapIn">
+    <wsdl:part name="parameters" element="tns:SuspensivasSubitems" />
+  </wsdl:message>
+  <wsdl:message name="SuspensivasSubitemsSoapOut">
+    <wsdl:part name="parameters" element="tns:SuspensivasSubitemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SuspensivasCancelacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:SuspensivasCancelaciones" />
+  </wsdl:message>
+  <wsdl:message name="SuspensivasCancelacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:SuspensivasCancelacionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="DummySoapIn">
+    <wsdl:part name="parameters" element="tns:Dummy" />
+  </wsdl:message>
+  <wsdl:message name="DummySoapOut">
+    <wsdl:part name="parameters" element="tns:DummyResponse" />
+  </wsdl:message>
+  <wsdl:portType name="wconsdeclaracionSoap">
+    <wsdl:operation name="BloqueosLista">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Lista de Destinaciones con Bloqueos Operativos.</wsdl:documentation>
+      <wsdl:input message="tns:BloqueosListaSoapIn" />
+      <wsdl:output message="tns:BloqueosListaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BloqueosIntervenciones">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Intervencviones asociadas a un Destinacion.</wsdl:documentation>
+      <wsdl:input message="tns:BloqueosIntervencionesSoapIn" />
+      <wsdl:output message="tns:BloqueosIntervencionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DetalladaListaDeclaraciones">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Listado de Destinaciones</wsdl:documentation>
+      <wsdl:input message="tns:DetalladaListaDeclaracionesSoapIn" />
+      <wsdl:output message="tns:DetalladaListaDeclaracionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DetalladaCaratula">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Caratula de una Declaracion Detallada</wsdl:documentation>
+      <wsdl:input message="tns:DetalladaCaratulaSoapIn" />
+      <wsdl:output message="tns:DetalladaCaratulaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DetalladaEstado">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Estados de una Declaracion Detallada</wsdl:documentation>
+      <wsdl:input message="tns:DetalladaEstadoSoapIn" />
+      <wsdl:output message="tns:DetalladaEstadoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DetalladaItems">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Items de una Declaracion Detallada</wsdl:documentation>
+      <wsdl:input message="tns:DetalladaItemsSoapIn" />
+      <wsdl:output message="tns:DetalladaItemsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DetalladaSubitem">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Subitems de una Declaracion Detallada</wsdl:documentation>
+      <wsdl:input message="tns:DetalladaSubitemSoapIn" />
+      <wsdl:output message="tns:DetalladaSubitemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DetalladaDocumentos">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Documentos de una Declaracion Detallada</wsdl:documentation>
+      <wsdl:input message="tns:DetalladaDocumentosSoapIn" />
+      <wsdl:output message="tns:DetalladaDocumentosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DetalladaOtrosDatos">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Otros Datos de una Declaracion Detallada</wsdl:documentation>
+      <wsdl:input message="tns:DetalladaOtrosDatosSoapIn" />
+      <wsdl:output message="tns:DetalladaOtrosDatosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SimiDjaiListaDeclaraciones">
+      <wsdl:input message="tns:SimiDjaiListaDeclaracionesSoapIn" />
+      <wsdl:output message="tns:SimiDjaiListaDeclaracionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SimiDjaiItems">
+      <wsdl:input message="tns:SimiDjaiItemsSoapIn" />
+      <wsdl:output message="tns:SimiDjaiItemsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SimiDjaiSubitems">
+      <wsdl:input message="tns:SimiDjaiSubitemsSoapIn" />
+      <wsdl:output message="tns:SimiDjaiSubitemsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SimiDjaiCancelaciones">
+      <wsdl:input message="tns:SimiDjaiCancelacionesSoapIn" />
+      <wsdl:output message="tns:SimiDjaiCancelacionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DestinacionesExpoCumplidasLista">
+      <wsdl:input message="tns:DestinacionesExpoCumplidasListaSoapIn" />
+      <wsdl:output message="tns:DestinacionesExpoCumplidasListaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PENListaNovedades">
+      <wsdl:input message="tns:PENListaNovedadesSoapIn" />
+      <wsdl:output message="tns:PENListaNovedadesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Intervenciones3OrgLista">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Lista de Destinaciones.</wsdl:documentation>
+      <wsdl:input message="tns:Intervenciones3OrgListaSoapIn" />
+      <wsdl:output message="tns:Intervenciones3OrgListaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Intervencion3OrgDetalle">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Lista de Intervenciones para una Destinacion.</wsdl:documentation>
+      <wsdl:input message="tns:Intervencion3OrgDetalleSoapIn" />
+      <wsdl:output message="tns:Intervencion3OrgDetalleSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SuspensivasListaDeclaraciones">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Lista de Declaraciones Suspensivas</wsdl:documentation>
+      <wsdl:input message="tns:SuspensivasListaDeclaracionesSoapIn" />
+      <wsdl:output message="tns:SuspensivasListaDeclaracionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SuspensivasItems">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Lista de Items de Declaraciones Suspensivas</wsdl:documentation>
+      <wsdl:input message="tns:SuspensivasItemsSoapIn" />
+      <wsdl:output message="tns:SuspensivasItemsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SuspensivasSubitems">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Lista de SubItems de Declaraciones Suspensivas</wsdl:documentation>
+      <wsdl:input message="tns:SuspensivasSubitemsSoapIn" />
+      <wsdl:output message="tns:SuspensivasSubitemsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SuspensivasCancelaciones">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Lista de Cancelaciones de Declaraciones Suspensivas</wsdl:documentation>
+      <wsdl:input message="tns:SuspensivasCancelacionesSoapIn" />
+      <wsdl:output message="tns:SuspensivasCancelacionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Dummy">
+      <wsdl:input message="tns:DummySoapIn" />
+      <wsdl:output message="tns:DummySoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="wconsdeclaracionSoap" type="tns:wconsdeclaracionSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BloqueosLista">
+      <soap:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/BloqueosLista" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BloqueosIntervenciones">
+      <soap:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/BloqueosIntervenciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DetalladaListaDeclaraciones">
+      <soap:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/DetalladaListaDeclaraciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DetalladaCaratula">
+      <soap:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/DetalladaCaratula" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DetalladaEstado">
+      <soap:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/DetalladaEstado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DetalladaItems">
+      <soap:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/DetalladaItems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DetalladaSubitem">
+      <soap:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/DetalladaSubitem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DetalladaDocumentos">
+      <soap:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/DetalladaDocumentos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DetalladaOtrosDatos">
+      <soap:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/DetalladaOtrosDatos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SimiDjaiListaDeclaraciones">
+      <soap:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/SimiDjaiListaDeclaraciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SimiDjaiItems">
+      <soap:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/SimiDjaiItems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SimiDjaiSubitems">
+      <soap:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/SimiDjaiSubitems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SimiDjaiCancelaciones">
+      <soap:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/SimiDjaiCancelaciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DestinacionesExpoCumplidasLista">
+      <soap:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/DestinacionesExpoCumplidasLista" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PENListaNovedades">
+      <soap:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/PENListaNovedades" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Intervenciones3OrgLista">
+      <soap:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/Intervenciones3OrgLista" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Intervencion3OrgDetalle">
+      <soap:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/Intervencion3OrgDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuspensivasListaDeclaraciones">
+      <soap:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/SuspensivasListaDeclaraciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuspensivasItems">
+      <soap:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/SuspensivasItems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuspensivasSubitems">
+      <soap:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/SuspensivasSubitems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuspensivasCancelaciones">
+      <soap:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/SuspensivasCancelaciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Dummy">
+      <soap:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/Dummy" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="wconsdeclaracionSoap12" type="tns:wconsdeclaracionSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BloqueosLista">
+      <soap12:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/BloqueosLista" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BloqueosIntervenciones">
+      <soap12:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/BloqueosIntervenciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DetalladaListaDeclaraciones">
+      <soap12:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/DetalladaListaDeclaraciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DetalladaCaratula">
+      <soap12:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/DetalladaCaratula" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DetalladaEstado">
+      <soap12:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/DetalladaEstado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DetalladaItems">
+      <soap12:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/DetalladaItems" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DetalladaSubitem">
+      <soap12:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/DetalladaSubitem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DetalladaDocumentos">
+      <soap12:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/DetalladaDocumentos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DetalladaOtrosDatos">
+      <soap12:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/DetalladaOtrosDatos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SimiDjaiListaDeclaraciones">
+      <soap12:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/SimiDjaiListaDeclaraciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SimiDjaiItems">
+      <soap12:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/SimiDjaiItems" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SimiDjaiSubitems">
+      <soap12:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/SimiDjaiSubitems" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SimiDjaiCancelaciones">
+      <soap12:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/SimiDjaiCancelaciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DestinacionesExpoCumplidasLista">
+      <soap12:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/DestinacionesExpoCumplidasLista" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PENListaNovedades">
+      <soap12:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/PENListaNovedades" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Intervenciones3OrgLista">
+      <soap12:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/Intervenciones3OrgLista" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Intervencion3OrgDetalle">
+      <soap12:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/Intervencion3OrgDetalle" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuspensivasListaDeclaraciones">
+      <soap12:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/SuspensivasListaDeclaraciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuspensivasItems">
+      <soap12:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/SuspensivasItems" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuspensivasSubitems">
+      <soap12:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/SuspensivasSubitems" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuspensivasCancelaciones">
+      <soap12:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/SuspensivasCancelaciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Dummy">
+      <soap12:operation soapAction="Ar.Gob.Afip.Dga.wconsdeclaracion/Dummy" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="wconsdeclaracion">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Consultas MOA referentes a los circuitos de Declaracion.</wsdl:documentation>
+    <wsdl:port name="wconsdeclaracionSoap" binding="tns:wconsdeclaracionSoap">
+      <soap:address location="https://wsaduhomoext.afip.gob.ar/diav2/wconsdeclaracion/wconsdeclaracion.asmx" />
+    </wsdl:port>
+    <wsdl:port name="wconsdeclaracionSoap12" binding="tns:wconsdeclaracionSoap12">
+      <soap12:address location="https://wsaduhomoext.afip.gob.ar/diav2/wconsdeclaracion/wconsdeclaracion.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
