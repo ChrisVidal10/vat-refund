@@ -24,6 +24,9 @@ namespace VATAduana
         List<wconsdeclaracion.DeclaracionDetalladaMOACaratula> listaCaratulas = new List<wconsdeclaracion.DeclaracionDetalladaMOACaratula>();
         List<wconsdeclaracion.DeclaracionDetalladaMOAEstado> listaEstados = new List<wconsdeclaracion.DeclaracionDetalladaMOAEstado>();
 
+        wconsdeclaracion.DeclaracionDetalladaMOACaratula auxCaratula;
+        wconsdeclaracion.DeclaracionDetalladaMOAEstado auxEstado;
+
         public formularioMOA()
         {
             InitializeComponent();
@@ -46,6 +49,7 @@ namespace VATAduana
 
         private void metroButtonAceptar_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             string radio;
             Int64 numeric;
             bool parsed = Int64.TryParse(TextBoxCUIT.Text, out numeric);
@@ -101,7 +105,8 @@ namespace VATAduana
                                         {
                                             listaCaratulas.Add(_MoaEmb.consultarCaratula(frm.token, frm.sign, TextBoxCUIT.Text, identificador));
                                             listaEstados.Add(_MoaEmb.consultarEstado(frm.token, frm.sign, TextBoxCUIT.Text, identificador));
-                                            Thread.Sleep(2000);
+                                            //ver listaItem 
+                                            // Thread.Sleep(2000);    
                                         }
                                         ExcelService.ExcelCreateEmbarques(consultaResponse, listaCaratulas, listaEstados);
                                         MetroMessageBox.Show(this, "Excel creado exitosamente", "Success", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -142,16 +147,50 @@ namespace VATAduana
                                 String[] infoTicket = Data.selectInfoTicket(TextBoxCUIT.Text);                           
                                 consultaResponse = _MoaEmb.consultarDetalle(infoTicket[0], infoTicket[1], TextBoxCUIT.Text, dateTimeInicio.Value, dateTimeFin.Value, radio);
 
+                               
+                                List<string> listaIdentificadoresFallidos = new List<string>();
+                                //Lista donde se guardan identificadores que tienen una falla en sus cargas para despues sacarlos de la lista principal
+
                                 foreach (var identificador in consultaResponse)
                                 {
-                                    listaCaratulas.Add(_MoaEmb.consultarCaratula(infoTicket[0], infoTicket[1], TextBoxCUIT.Text, identificador));
-                                    listaEstados.Add(_MoaEmb.consultarEstado(infoTicket[0], infoTicket[1], TextBoxCUIT.Text, identificador));
-                                    Thread.Sleep(2000);
+                                    try
+                                    {
+                                        auxCaratula = _MoaEmb.consultarCaratula(infoTicket[0], infoTicket[1], TextBoxCUIT.Text, identificador);
+                                        auxEstado = _MoaEmb.consultarEstado(infoTicket[0], infoTicket[1], TextBoxCUIT.Text, identificador);                                  
+                                        //Thread.Sleep(2000);
+                                        //Funciona sin la espera, se le podria poner igual por las dudas 
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        listaIdentificadoresFallidos.Add(identificador);
+                                        MetroMessageBox.Show(this, ex.Message + " El id que fallo es: " + identificador, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        //Se saldria por aca en caso de que falle la conexion o un error similar
+                                        //Queremos agarrar el error asi sacamos el identificador de la lista y continua el foreach
+                                        //Esos errores se podrian guardar en un log para avisale al usuario
+                                    }
+                                    if(auxCaratula!=null && auxEstado!= null)
+                                    //Van a ser null en caso de que ocurra un error en la carga de alguna
+                                    {
+                                        listaCaratulas.Add(auxCaratula);
+                                        listaEstados.Add(auxEstado);
+                                        auxEstado = null;
+                                        auxCaratula = null;
+                                        //Si no estan null se agregan y se las vuelve al estado null para hacer este mismo chequeo
+                                    }
                                 }
+                                foreach(var identificador in listaIdentificadoresFallidos)
+                                {
+                                    consultaResponse.Remove(identificador);
+                                }
+                                //Sacamos de la lista los identificadores que fallaron
                                 ExcelService.ExcelCreateEmbarques(consultaResponse, listaCaratulas, listaEstados);
+                                Cursor.Current = Cursors.Default;
                                 MetroMessageBox.Show(this, "Excel creado exitosamente", "Success", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                this.Close();
+                                new Menu().Show();
+                                //Por ahora volvemos a mostrar el menu desde de completar un excel
                                 //Metodo que envie el objeto y haga las demas consulta con su for
-                                //metodo que arme y llame el excel
+                                //Metodo que arme y llame el excel
                                 //Termino de llenarse el excel, cierro la app?
                             }
                         }
@@ -159,7 +198,6 @@ namespace VATAduana
                         {
                             MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
-
                     }
                 }
                 else
@@ -171,7 +209,7 @@ namespace VATAduana
             {
                 MetroMessageBox.Show(this, "Ingrese correctamente el CUIT", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-        
+            Cursor.Current = Cursors.Default;
         }
 
         private void metroButtonCancelar_Click(object sender, EventArgs e)
