@@ -68,7 +68,7 @@ namespace VATAduana
                 }
                 finally
                 {
-                    Cursor.Current = Cursors.Default;
+                    //Cursor.Current = Cursors.Default;
                 }
 
             }
