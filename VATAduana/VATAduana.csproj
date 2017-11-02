@@ -83,6 +83,8 @@
   <ItemGroup>
     <Compile Include="CertificadosX509Lib.cs" />
     <Compile Include="Data.cs" />
+    <Compile Include="ELog.cs" />
+    <Compile Include="ExcelServiceGranos.cs" />
     <Compile Include="ExcelService.cs" />
     <Compile Include="Embarques.cs">
       <SubType>Form</SubType>

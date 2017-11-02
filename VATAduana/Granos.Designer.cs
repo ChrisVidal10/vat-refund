@@ -40,7 +40,6 @@
             this.metroButtonEliminar = new MetroFramework.Controls.MetroButton();
             this.metroRadioButtonLpg = new MetroFramework.Controls.MetroRadioButton();
             this.metroRadioButtonLsg = new MetroFramework.Controls.MetroRadioButton();
-            this.metroRadioButtonAjus = new MetroFramework.Controls.MetroRadioButton();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
             this.metroButtonCSV = new MetroFramework.Controls.MetroButton();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -70,6 +69,7 @@
             this.textBoxCUIT.Name = "textBoxCUIT";
             this.textBoxCUIT.Size = new System.Drawing.Size(168, 20);
             this.textBoxCUIT.TabIndex = 1;
+            this.textBoxCUIT.Text = "20223803491";
             // 
             // metroButtonCancelar
             // 
@@ -151,26 +151,14 @@
             this.metroRadioButtonLsg.Text = "Liq. Secundaria";
             this.metroRadioButtonLsg.UseSelectable = true;
             // 
-            // metroRadioButtonAjus
-            // 
-            this.metroRadioButtonAjus.AutoSize = true;
-            this.metroRadioButtonAjus.Location = new System.Drawing.Point(3, 59);
-            this.metroRadioButtonAjus.Name = "metroRadioButtonAjus";
-            this.metroRadioButtonAjus.Size = new System.Drawing.Size(56, 15);
-            this.metroRadioButtonAjus.Style = MetroFramework.MetroColorStyle.Yellow;
-            this.metroRadioButtonAjus.TabIndex = 5;
-            this.metroRadioButtonAjus.Text = "Ajuste";
-            this.metroRadioButtonAjus.UseSelectable = true;
-            // 
             // metroPanel1
             // 
             this.metroPanel1.Controls.Add(this.metroRadioButtonLsg);
-            this.metroPanel1.Controls.Add(this.metroRadioButtonAjus);
             this.metroPanel1.Controls.Add(this.metroRadioButtonLpg);
             this.metroPanel1.HorizontalScrollbarBarColor = true;
             this.metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
             this.metroPanel1.HorizontalScrollbarSize = 10;
-            this.metroPanel1.Location = new System.Drawing.Point(385, 46);
+            this.metroPanel1.Location = new System.Drawing.Point(385, 63);
             this.metroPanel1.Name = "metroPanel1";
             this.metroPanel1.Size = new System.Drawing.Size(120, 93);
             this.metroPanel1.TabIndex = 18;
@@ -236,7 +224,6 @@
         private MetroFramework.Controls.MetroButton metroButtonEliminar;
         private MetroFramework.Controls.MetroRadioButton metroRadioButtonLpg;
         private MetroFramework.Controls.MetroRadioButton metroRadioButtonLsg;
-        private MetroFramework.Controls.MetroRadioButton metroRadioButtonAjus;
         private MetroFramework.Controls.MetroPanel metroPanel1;
         private MetroFramework.Controls.MetroButton metroButtonCSV;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;

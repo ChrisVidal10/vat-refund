@@ -12,6 +12,7 @@ using MetroFramework;
 using System.IO;
 using System.Xml.Serialization;
 using Microsoft.VisualBasic.FileIO;
+using System.Threading;
 
 namespace VATAduana
 {
@@ -22,6 +23,14 @@ namespace VATAduana
         LiqGranos _LiqGranos = new LiqGranos();    
         string service = "wslpg";
         object objConsulta = new object();
+        List<wslpg.LpgLiqConsReturnType> ListaLiquidacionesPri = new List<wslpg.LpgLiqConsReturnType>();
+        wslpg.LpgLiqConsReturnType auxLiquidacionesPri;
+        List<wslpg.LsgConsultaReturnType> ListaLiquidacionesSec = new List<wslpg.LsgConsultaReturnType>();
+        wslpg.LsgConsultaReturnType auxLiquidacionesSec;
+        List<wslpg.LpgAjusteConsReturnType> ListaLiquidacionesAjus = new List<wslpg.LpgAjusteConsReturnType>();
+        wslpg.LpgAjusteConsReturnType auxLiquidacionesAjus;
+        List<string> erroresCoe = new List<string>();
+        List<List<string>> listaErroresCoe = new List<List<string>>();
 
         public Granos()
         {
@@ -43,150 +52,63 @@ namespace VATAduana
 
         private void metroButtonAceptar_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             Int64 numeric;
             bool parsed = Int64.TryParse(textBoxCUIT.Text, out numeric);
+         
 
             if (textBoxCUIT.Text.Length == textBoxCUIT.MaxLength && parsed)
             {
                 if (listBoxCoes.Items.Count != 0)
                 {
-                    if (metroRadioButtonLpg.Checked || metroRadioButtonLsg.Checked || metroRadioButtonAjus.Checked)
+                    if (metroRadioButtonLpg.Checked || metroRadioButtonLsg.Checked)
                     {
-                        if (_LiqGranos.dummyServers())
+                        try
                         {
-                            if (!Data.VerificarTokenActivo(textBoxCUIT.Text))
+                            if (_LiqGranos.dummyServers())
                             {
-                                try
+                                if (!Data.VerificarTokenActivo(textBoxCUIT.Text))
                                 {
-                                    formularioCertificado frm = new formularioCertificado();
-                                    frm.Cuit = textBoxCUIT.Text;
-                                    frm.servicio = this.service;
-
-                                    if (frm.ShowDialog() != DialogResult.No)
+                                    try
                                     {
-                                        if (metroRadioButtonLpg.Checked)
+                                        formularioCertificado frm = new formularioCertificado();
+                                        frm.Cuit = textBoxCUIT.Text;
+                                        frm.servicio = this.service;
+                                        _LiqGranos.consultarGranos(frm.token, frm.sign, Convert.ToInt64(textBoxCUIT.Text));
+                                        _LiqGranos.consultarPuertos(frm.token, frm.sign, Convert.ToInt64(textBoxCUIT.Text));
+                                        _LiqGranos.consultarActividades(frm.token, frm.sign, Convert.ToInt64(textBoxCUIT.Text));
+
+                                        if (frm.ShowDialog() != DialogResult.No)
                                         {
-                                            foreach (object item in listBoxCoes.Items)
-                                            {
-                                                try
-                                                {
-                                                    objConsulta = _LiqGranos.consultarLiqXCoe(frm.token, frm.sign, Convert.ToInt64(textBoxCUIT.Text), Convert.ToInt64(item.ToString()));
-                                                }
-                                                catch (Exception ex)
-                                                {
-                                                    MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                                    continue;
-                                                }
-
-
-                                            }
-
-                                        }
-                                        else
-                                        {
-                                            if (metroRadioButtonLsg.Checked)
-                                            {
-                                                foreach (object item in listBoxCoes.Items)
-                                                {
-                                                    try
-                                                    {
-                                                        _LiqGranos.consultarLsgXCoe(frm.token, frm.sign, Convert.ToInt64(textBoxCUIT.Text), Convert.ToInt64(item.ToString()));
-                                                    }
-                                                    catch (Exception ex)
-                                                    {
-                                                        MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                                        continue;
-                                                    }
-                                                }
-                                            }
-                                            else
-                                            {
-                                                foreach (long item in listBoxCoes.Items)
-                                                {
-                                                    try
-                                                    {
-                                                        _LiqGranos.consultarAjusXCoe(frm.token, frm.sign, Convert.ToInt64(textBoxCUIT.Text), Convert.ToInt64(item.ToString()));
-                                                    }
-                                                    catch (Exception ex)
-                                                    {
-                                                        MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                                        continue;
-                                                    }
-                                                }
-                                            }
+                                            consultaCoe(frm.token, frm.sign);
                                         }
                                     }
-                                }
-                                catch (Exception ex)
-                                {
-                                    MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                }
-                                this.Close();
-                            }
-                            else
-                            {
-                                String[] infoTicket = Data.selectInfoTicket(textBoxCUIT.Text);
-
-                                if (metroRadioButtonLpg.Checked)
-                                {
-                                    foreach (object item in listBoxCoes.Items)
+                                    catch (Exception ex)
                                     {
-                                        try
-                                        {
-                                            _LiqGranos.consultarLiqXCoe(infoTicket[0], infoTicket[1], Convert.ToInt64(textBoxCUIT.Text), Convert.ToInt64(item.ToString()));
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                            continue;
-                                        }
+                                        MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     }
-
+                                    this.Close();
                                 }
                                 else
                                 {
-                                    if (metroRadioButtonLsg.Checked)
-                                    {
-                                        foreach (object item in listBoxCoes.Items)
-                                        {
-                                            try
-                                            {
-                                                _LiqGranos.consultarLsgXCoe(infoTicket[0], infoTicket[1], Convert.ToInt64(textBoxCUIT.Text), Convert.ToInt64(item.ToString()));
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                                continue;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        foreach (object item in listBoxCoes.Items)
-                                        {
-                                            try
-                                            {
-                                                _LiqGranos.consultarAjusXCoe(infoTicket[0], infoTicket[1], Convert.ToInt64(textBoxCUIT.Text), Convert.ToInt64(item.ToString()));
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                                continue;
-                                            }
-                                        }
-                                    }
+                                    String[] infoTicket = Data.selectInfoTicket(textBoxCUIT.Text);                               
+                                    consultaCoe(infoTicket[0],infoTicket[1]);
+                                    this.Close();
                                 }
-                                this.Close();
+                            }
+                            else
+                            {
+                                MetroMessageBox.Show(this, "El servicio web no esta disponible", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            MetroMessageBox.Show(this, "Elija algun tipo de consulta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
                     else
                     {
-                        MetroMessageBox.Show(this, "El servicio web no esta disponible", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MetroMessageBox.Show(this, "Elija algun tipo de consulta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
 
                 }
@@ -201,6 +123,14 @@ namespace VATAduana
                 MetroMessageBox.Show(this, "Ingrese un CUIT valido", "Error",  MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             }
+        }
+
+        private void serializarXML(Type typeObj, object objASerializar, string name)
+        {
+            XmlSerializer xs = new XmlSerializer(typeObj);
+            TextWriter txtWriter = new StreamWriter(string.Format(@"{0}\Excel{1}.xml", Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),name));
+            xs.Serialize(txtWriter, objASerializar);
+            txtWriter.Close();
         }
 
         private void metroButtonAdd_Click(object sender, EventArgs e)
@@ -327,5 +257,107 @@ namespace VATAduana
             }
           
         }
-    }
+
+        private void consultaCoe(string token, string sign)
+        {
+            _LiqGranos.consultarGranos(token, sign, Convert.ToInt64(textBoxCUIT.Text));
+            _LiqGranos.consultarPuertos(token, sign, Convert.ToInt64(textBoxCUIT.Text));
+            _LiqGranos.consultarActividades(token, sign, Convert.ToInt64(textBoxCUIT.Text));
+
+            if (metroRadioButtonLpg.Checked)
+            {
+                foreach (object item in listBoxCoes.Items)
+                {
+                    try
+                    {
+                        auxLiquidacionesAjus = _LiqGranos.consultarAjusXCoe(token, sign, Convert.ToInt64(textBoxCUIT.Text), Convert.ToInt64(item.ToString()));
+                        Thread.Sleep(1000);
+                    }
+                    catch (Exception ex)
+                    {
+                        listaErroresCoe.Add(new List<string> {item.ToString(), ex.Message.ToString()});               
+                    }
+                    try
+                    {
+                        auxLiquidacionesPri = _LiqGranos.consultarLiqXCoe(token, sign, Convert.ToInt64(textBoxCUIT.Text), Convert.ToInt64(item.ToString()));
+                        Thread.Sleep(1000);
+                    }
+                    catch (Exception ex)
+                    {
+                        listaErroresCoe.Add(new List<string> { item.ToString(), ex.Message.ToString() });
+                    }
+                    if (auxLiquidacionesAjus != null && auxLiquidacionesAjus.errores == null)
+                    {
+                        ListaLiquidacionesAjus.Add(auxLiquidacionesAjus);
+                        auxLiquidacionesAjus = null;
+                    }
+                    if (auxLiquidacionesPri != null && auxLiquidacionesPri.errores == null)
+                    {
+                        ListaLiquidacionesPri.Add(auxLiquidacionesPri);
+                        auxLiquidacionesPri = null;
+                    }
+                }
+                try
+                {
+                    ELog.createTxtErrores(listaErroresCoe, "granos");
+                    ExcelServiceGranos.ExcelCreateLiqPrimarias(ListaLiquidacionesPri, ListaLiquidacionesAjus, _LiqGranos.Codigos, _LiqGranos.Puertos, _LiqGranos.Actividades);
+                    MetroMessageBox.Show(this, "Excel creado exitosamente", "Success", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                catch (Exception ex)
+                {
+                    MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                Cursor.Current = Cursors.Default;
+                
+            }
+            else
+            {
+                if (metroRadioButtonLsg.Checked)
+                {
+                    foreach (object item in listBoxCoes.Items)
+                    {
+                        try
+                        {
+                            auxLiquidacionesAjus = _LiqGranos.consultarAjusXCoe(token, sign, Convert.ToInt64(textBoxCUIT.Text), Convert.ToInt64(item.ToString()));
+                            Thread.Sleep(1000);
+                        }
+                        catch (Exception ex)
+                        {
+                            listaErroresCoe.Add(new List<string> { item.ToString(), ex.Message.ToString() });
+                        }
+                        try
+                        {
+                            auxLiquidacionesSec = _LiqGranos.consultarLsgXCoe(token, sign, Convert.ToInt64(textBoxCUIT.Text), Convert.ToInt64(item.ToString()));
+                            Thread.Sleep(1000);
+                        }
+                        catch (Exception ex)
+                        {
+                            listaErroresCoe.Add(new List<string> { item.ToString(), ex.Message.ToString() });
+                        }
+                        if (auxLiquidacionesAjus != null && auxLiquidacionesAjus.errores == null)
+                        {
+                            ListaLiquidacionesAjus.Add(auxLiquidacionesAjus);
+                            auxLiquidacionesAjus = null;
+                        }
+                        if (auxLiquidacionesSec != null && auxLiquidacionesSec.errores == null)
+                        {
+                            ListaLiquidacionesSec.Add(auxLiquidacionesSec);
+                            auxLiquidacionesSec = null;
+                        }
+                    }
+                    try
+                    {
+                        ELog.createTxtErrores(listaErroresCoe, "granos");
+                        ExcelServiceGranos.ExcelCreateLiqSecundarias(ListaLiquidacionesSec, ListaLiquidacionesAjus, _LiqGranos.Codigos, _LiqGranos.Puertos, _LiqGranos.Actividades);
+                        MetroMessageBox.Show(this, "Excel creado exitosamente", "Success", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    catch (Exception ex)
+                    {
+                        MetroMessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    Cursor.Current = Cursors.Default;
+                }
+            }
+            }
+        }
 }
