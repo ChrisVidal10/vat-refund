@@ -77,7 +77,7 @@
             this.Name = "Menu";
             this.Resizable = false;
             this.Style = MetroFramework.MetroColorStyle.Yellow;
-            this.Text = "Menu";
+            this.Text = "Menu (Web Services)";
             this.Load += new System.EventHandler(this.Menu_Load);
             this.ResumeLayout(false);
 

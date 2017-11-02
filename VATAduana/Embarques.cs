@@ -118,7 +118,7 @@ namespace VATAduana
                 }
                 else
                 {
-                    MetroMessageBox.Show(this, "Escoja el tipo de operación", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MetroMessageBox.Show(this, "Elija un tipo de operación", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             else
@@ -179,8 +179,7 @@ namespace VATAduana
                         {
                             listaIdentificadoresFallidos.Add(new List<string> { identificador, ex.Message.ToString() });
 
-                            //ELog.createTxtErrores(listaIdentificadoresFallidos, "aduana");
-                            //Linea de agregar al log necesito tener ELog para que funcione, esperando codigo de cris
+
 
                             //Se saldria por aca en caso de que falle la conexion o un error similar
                             //Queremos agarrar el error asi sacamos el identificador de la lista y continua el foreach
@@ -206,6 +205,7 @@ namespace VATAduana
                     consultaResponse.Remove(identificador[0]);
                 }
                 //Sacamos de la lista los identificadores que fallaron
+                ELog.createTxtErrores(listaIdentificadoresFallidos, "aduana");               
                 ExcelService.ExcelCreateEmbarques(consultaResponse, listaCaratulas, listaEstados, listaItems, listaSubItems, asociaciones);
                 //Cargamos el excel
                 Cursor.Current = Cursors.Default;

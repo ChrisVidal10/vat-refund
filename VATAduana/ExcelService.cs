@@ -31,50 +31,53 @@ namespace VATAduana
                 // ------------------------------------------------
                 // Creation of header cells
                 // ------------------------------------------------
+                //Header Caratula y Estado
+                workSheet.Cells[1, "B"] = "Carátula";
+                workSheet.Cells[1, "S"] = "Estado";
                 //Caratula
-                workSheet.Cells[1, "A"] = "Destinacion";
-                workSheet.Cells[1, "B"] = "Canal seleccion";
-                workSheet.Cells[1, "C"] = "Proveedor destinatario";
-                workSheet.Cells[1, "D"] = "Monto fob total";
-                workSheet.Cells[1, "E"] = "Moneda fob total";
-                workSheet.Cells[1, "F"] = "Monto flete total";
-                workSheet.Cells[1, "G"] = "Codigo moneda flete";
-                workSheet.Cells[1, "H"] = "Monto seguro total";
-                workSheet.Cells[1, "I"] = "Codigo moneda seguro";
-                workSheet.Cells[1, "J"] = "Identificador manifiesto";
-                workSheet.Cells[1, "K"] = "Codigo documento transporte";
-                workSheet.Cells[1, "L"] = "CUit agente de transporte";
-                workSheet.Cells[1, "M"] = "Fecha ventcimiento temporal";
-                workSheet.Cells[1, "N"] = "Fecha arribo mercaderia";
-                workSheet.Cells[1, "O"] = "Total bultos";
-                workSheet.Cells[1, "P"] = "Peso bruto";
-                workSheet.Cells[1, "Q"] = "Peso guia";
-                workSheet.Cells[1, "R"] = "Motivo anulacion";
+                workSheet.Cells[2, "A"] = "Destinación";
+                workSheet.Cells[2, "B"] = "Canal selección";
+                workSheet.Cells[2, "C"] = "Proveedor destinatario";
+                workSheet.Cells[2, "D"] = "Monto fob total";
+                workSheet.Cells[2, "E"] = "Moneda fob total";
+                workSheet.Cells[2, "F"] = "Monto flete total";
+                workSheet.Cells[2, "G"] = "Código moneda flete";
+                workSheet.Cells[2, "H"] = "Monto seguro total";
+                workSheet.Cells[2, "I"] = "Código moneda seguro";
+                workSheet.Cells[2, "J"] = "Identificador manifiesto";
+                workSheet.Cells[2, "K"] = "Código documento transporte";
+                workSheet.Cells[2, "L"] = "CUIT agente de transporte";
+                workSheet.Cells[2, "M"] = "Fecha vencimiento temporal";
+                workSheet.Cells[2, "N"] = "Fecha arribo mercaderia";
+                workSheet.Cells[2, "O"] = "Total bultos";
+                workSheet.Cells[2, "P"] = "Peso bruto";
+                workSheet.Cells[2, "Q"] = "Peso guía";
+                workSheet.Cells[2, "R"] = "Motivo anulación";
 
                 //Estado
-                workSheet.Cells[1, "S"] = "Fecha presentacion";
-                workSheet.Cells[1, "T"] = "Fecha autorizacion retiro";
-                workSheet.Cells[1, "U"] = "Fecha salida";
-                workSheet.Cells[1, "V"] = "Fecha Cancelacion";
-                workSheet.Cells[1, "W"] = "Fecha oficializacion permiso embarque original";
-                workSheet.Cells[1, "X"] = "Fecha presentacion permiso embarque original";
-                workSheet.Cells[1, "Y"] = "Fecha precumplido";
-                workSheet.Cells[1, "Z"] = "Fecha ventcimiento embarque";
-                workSheet.Cells[1, "AA"] = "Indicador precumplido";
-                workSheet.Cells[1, "AB"] = "Indicador cumplido";
-                workSheet.Cells[1, "AC"] = "Indicador control unidades conforme";
+                workSheet.Cells[2, "S"] = "Fecha presentación";
+                workSheet.Cells[2, "T"] = "Fecha autorización retiro";
+                workSheet.Cells[2, "U"] = "Fecha salida";
+                workSheet.Cells[2, "V"] = "Fecha cancelación";
+                workSheet.Cells[2, "W"] = "Fecha oficialización permiso embarque original";
+                workSheet.Cells[2, "X"] = "Fecha presentación permiso embarque original";
+                workSheet.Cells[2, "Y"] = "Fecha precumplido";
+                workSheet.Cells[2, "Z"] = "Fecha ventcimiento embarque";
+                workSheet.Cells[2, "AA"] = "Indicador precumplido";
+                workSheet.Cells[2, "AB"] = "Indicador cumplido";
+                workSheet.Cells[2, "AC"] = "Indicador control unidades conforme";
 
                 // ------------------------------------------------
                 // Recorro las listas para poder pegar la informacion
                 // ------------------------------------------------
-                int row = 2; // start row (in row 1 are header cells)
+                int row = 3; // start row (in row 1 are header cells)
                 foreach (string dest in destinaciones)
                 {
                     workSheet.Cells[row, "A"] = dest;
                     row++;
                 }
 
-                row = 2;
+                row = 3;
                 foreach (wconsdeclaracion.DeclaracionDetalladaMOACaratula car in caratula)
                 {
                     workSheet.Cells[row, "B"] = car.CanalSeleccion;
@@ -97,7 +100,7 @@ namespace VATAduana
                     row++;
                 }
 
-                row = 2;
+                row = 3;
                 foreach (wconsdeclaracion.DeclaracionDetalladaMOAEstado est in estado)
                 {
                     workSheet.Cells[row, "S"] = est.FechaPresentacion;
@@ -122,23 +125,23 @@ namespace VATAduana
                 Microsoft.Office.Interop.Excel._Worksheet workSheet2 = excel.ActiveSheet;
                 workSheet2.Name = "Items";
 
-                workSheet2.Cells[1, "A"] = "Destinacion";
-                workSheet2.Cells[1, "B"] = "Identificador Item";
-                workSheet2.Cells[1, "C"] = "Cantidad Estadistica";
-                workSheet2.Cells[1, "D"] = "Cantidad Unidad Declarada";
-                workSheet2.Cells[1, "E"] = "Codigo Pais Origen";
-                workSheet2.Cells[1, "F"] = "Codigo Pais Procedencia";
-                workSheet2.Cells[1, "G"] = "Codigo Unidad Declarada";
-                workSheet2.Cells[1, "H"] = "Codigo Unidad Estadistica";
-                workSheet2.Cells[1, "I"] = "Estado Uso Mercaderia";
-                workSheet2.Cells[1, "J"] = "Codigo Acuerdo"; 
-                workSheet2.Cells[1, "K"] = "Monto Ajuste Deducir Dolar";
-                workSheet2.Cells[1, "L"] = "Monto Ajuste Incluir Dolar";
+                workSheet2.Cells[1, "A"] = "Destinación";
+                workSheet2.Cells[1, "B"] = "Identificador item";
+                workSheet2.Cells[1, "C"] = "Cantidad estadística";
+                workSheet2.Cells[1, "D"] = "Cantidad unidad declarada";
+                workSheet2.Cells[1, "E"] = "Código país origen";
+                workSheet2.Cells[1, "F"] = "Código país procedencia";
+                workSheet2.Cells[1, "G"] = "Código unidad declarada";
+                workSheet2.Cells[1, "H"] = "Código unidad estadística";
+                workSheet2.Cells[1, "I"] = "Estado uso mercaderia";
+                workSheet2.Cells[1, "J"] = "Código acuerdo"; 
+                workSheet2.Cells[1, "K"] = "Monto ajuste deducir dolar";
+                workSheet2.Cells[1, "L"] = "Monto ajuste incluir dolar";
                 workSheet2.Cells[1, "M"] = "Monto Fob Divisa";
-                workSheet2.Cells[1, "N"] = "Monto Insumos Importacion A Consumo";
-                workSheet2.Cells[1, "O"] = "Monto Insumos Importacion Temporal";
-                workSheet2.Cells[1, "P"] = "Monto Unitario";
-                workSheet2.Cells[1, "Q"] = "PosicionArancelariaSIM";
+                workSheet2.Cells[1, "N"] = "Monto insumos importación a consumo";
+                workSheet2.Cells[1, "O"] = "Monto insumos importación temporal";
+                workSheet2.Cells[1, "P"] = "Monto unitario";
+                workSheet2.Cells[1, "Q"] = "Posición arancelaria SIM";
 
                 row = 2;
                 int index = 0;
@@ -181,16 +184,16 @@ namespace VATAduana
                 Microsoft.Office.Interop.Excel._Worksheet workSheet3 = excel.ActiveSheet;
                 workSheet3.Name = "SubItems";
 
-                workSheet3.Cells[1, "A"] = "Destinacion";
-                workSheet3.Cells[1, "B"] = "Identificador Item";
-                workSheet3.Cells[1, "C"] = "Sufijo Valor SubItem";
-                workSheet3.Cells[1, "D"] = "Numero SubItem";
-                workSheet3.Cells[1, "E"] = "Cantidad Declarada"; 
-                workSheet3.Cells[1, "F"] = "Cantidad Estadistica";
-                workSheet3.Cells[1, "G"] = "Codigo Unidad Declarada";
-                workSheet3.Cells[1, "H"] = "Codigo Unidad Estadistica";
-                workSheet3.Cells[1, "I"] = "Monto Fob Dolar";               
-                workSheet3.Cells[1, "J"] = "Precio Unitario";
+                workSheet3.Cells[1, "A"] = "Destinación";
+                workSheet3.Cells[1, "B"] = "Identificador item";
+                workSheet3.Cells[1, "C"] = "Sufijo valor subitem";
+                workSheet3.Cells[1, "D"] = "Número subitem";
+                workSheet3.Cells[1, "E"] = "Cantidad declarada"; 
+                workSheet3.Cells[1, "F"] = "Cantidad estadística";
+                workSheet3.Cells[1, "G"] = "Código unidad declarada";
+                workSheet3.Cells[1, "H"] = "Código unidad estadistica";
+                workSheet3.Cells[1, "I"] = "Monto fob dolar";               
+                workSheet3.Cells[1, "J"] = "Precio unitario";
                 
 
                 row = 2;
@@ -258,7 +261,11 @@ namespace VATAduana
 
 
                 // Apply some predefined styles for data to look nicely :)
+
+                workSheet.Range["B1:R1"].Merge(true);
+                workSheet.Range["S1:AC1"].Merge(true);
                 workSheet.Range["A1"].AutoFormat(Microsoft.Office.Interop.Excel.XlRangeAutoFormat.xlRangeAutoFormatClassic1);
+                workSheet.Range["A2"].AutoFormat(Microsoft.Office.Interop.Excel.XlRangeAutoFormat.xlRangeAutoFormatClassic1);
                 workSheet2.Range["A1"].AutoFormat(Microsoft.Office.Interop.Excel.XlRangeAutoFormat.xlRangeAutoFormatClassic1);
                 workSheet3.Range["A1"].AutoFormat(Microsoft.Office.Interop.Excel.XlRangeAutoFormat.xlRangeAutoFormatClassic1);
 
@@ -271,7 +278,7 @@ namespace VATAduana
             catch (Exception exception)
             {
                 //MessageBox.Show("Exception","There was a PROBLEM saving Excel file!\n" + exception.Message,MessageBoxButtons.OK, MessageBoxIcon.Error);
-                throw new Exception("***Hubo un problema crando archivo de excel " + exception.Message);
+                throw new Exception("Hubo un problema crando archivo de excel " + exception.Message);
             }
             finally
             {

@@ -35,8 +35,8 @@ namespace VATAduana
                     // ------------------------------------------------
                     //Liquidacion Primaria
                     workSheet.Cells[1, "A"] = "Fecha";
-                    workSheet.Cells[1, "B"] = "Liquidacion";
-                    workSheet.Cells[1, "C"] = "Tipo de operacion";
+                    workSheet.Cells[1, "B"] = "Liquidación";
+                    workSheet.Cells[1, "C"] = "Tipo de operación";
                     workSheet.Cells[1, "D"] = "Actividad";
                     workSheet.Cells[1, "E"] = "COE";
                     workSheet.Cells[1, "F"] = "Certificados";
@@ -51,7 +51,7 @@ namespace VATAduana
                     workSheet.Cells[1, "O"] = "Subtotal";
                     workSheet.Cells[1, "P"] = "% Alicuota IVA";
                     workSheet.Cells[1, "Q"] = "Importe IVA";
-                    workSheet.Cells[1, "R"] = "Datos Adicionales";
+                    workSheet.Cells[1, "R"] = "Datos adicionales";
 
 
                     // ------------------------------------------------
@@ -98,7 +98,7 @@ namespace VATAduana
             }
             catch (Exception exception)
             {               
-                throw new Exception("***Hubo un problema crando archivo de excel " + exception.Message);
+                throw new Exception("Hubo un problema crando archivo de excel " + exception.Message);
             }
             finally
             {
@@ -145,7 +145,7 @@ namespace VATAduana
                 // ------------------------------------------------
                 //Liquidacion Primaria
                 workSheet.Cells[1, "A"] = "Fecha";
-                workSheet.Cells[1, "B"] = "Liquidacion";
+                workSheet.Cells[1, "B"] = "Liquidación";
                 workSheet.Cells[1, "C"] = "Actividad vendedor";
                 workSheet.Cells[1, "D"] = "COE";
                 workSheet.Cells[1, "E"] = "Comprador CUIT";
@@ -159,7 +159,7 @@ namespace VATAduana
                 workSheet.Cells[1, "M"] = "Subtotal";
                 workSheet.Cells[1, "N"] = "% Alicuota IVA";
                 workSheet.Cells[1, "O"] = "Importe IVA";
-                workSheet.Cells[1, "P"] = "Datos Adicionales";
+                workSheet.Cells[1, "P"] = "Datos adicionales";
 
 
                 // ------------------------------------------------
@@ -201,7 +201,7 @@ namespace VATAduana
             }
             catch (Exception exception)
             {
-                throw new Exception("***Hubo un problema crando archivo de excel " + exception.Message);
+                throw new Exception("Hubo un problema crando archivo de excel " + exception.Message);
             }
             finally
             {
@@ -235,8 +235,8 @@ namespace VATAduana
 
 
             //Ajustes
-            workSheet2.Cells[1, "F"] = "Ajuste Credito";
-            workSheet2.Cells[1, "L"] = "Ajuste Debito";
+            workSheet2.Cells[1, "F"] = "Ajuste crédito";
+            workSheet2.Cells[1, "L"] = "Ajuste débito";
             //Unicos
             workSheet2.Cells[2, "A"] = "COE Ajuste";
             workSheet2.Cells[2, "B"] = "COE Original";
@@ -244,21 +244,21 @@ namespace VATAduana
             workSheet2.Cells[2, "D"] = "Estado";
             workSheet2.Cells[2, "E"] = "Contrato";
             //ajuste credito
-            workSheet2.Cells[2, "F"] = "Fecha liquidacion";
-            workSheet2.Cells[2, "G"] = "Precio operacion";
+            workSheet2.Cells[2, "F"] = "Fecha liquidación";
+            workSheet2.Cells[2, "G"] = "Precio operación";
             workSheet2.Cells[2, "H"] = "Subtotal";
             workSheet2.Cells[2, "I"] = "Importe IVA";
-            workSheet2.Cells[2, "J"] = "Operacion con IVA";
+            workSheet2.Cells[2, "J"] = "Operación con IVA";
             workSheet2.Cells[2, "K"] = "Total peso neto";
             //ajuste debito
-            workSheet2.Cells[2, "L"] = "Fecha liquidacion";
-            workSheet2.Cells[2, "M"] = "Precio operacion";
+            workSheet2.Cells[2, "L"] = "Fecha liquidación";
+            workSheet2.Cells[2, "M"] = "Precio operación";
             workSheet2.Cells[2, "N"] = "Subtotal";
             workSheet2.Cells[2, "O"] = "Importe IVA";
-            workSheet2.Cells[2, "P"] = "Operacion con IVA";
+            workSheet2.Cells[2, "P"] = "Operación con IVA";
             workSheet2.Cells[2, "Q"] = "Total peso neto";
             //Totales unificados
-            workSheet2.Cells[2, "R"] = "Sub total debito/credito";
+            workSheet2.Cells[2, "R"] = "Sub total débito/crédito";
             workSheet2.Cells[2, "S"] = "Sub total general";
             workSheet2.Cells[2, "T"] = "IVA 10.5";
             workSheet2.Cells[2, "U"] = "IVA 21";

@@ -43,8 +43,8 @@ namespace VATAduana
             this.metroButtonCancelar = new MetroFramework.Controls.MetroButton();
             this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
-            this.metroRadioButtonImpo = new MetroFramework.Controls.MetroRadioButton();
             this.metroRadioButtonExpo = new MetroFramework.Controls.MetroRadioButton();
+            this.metroRadioButtonImpo = new MetroFramework.Controls.MetroRadioButton();
             this.metroPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,10 +72,10 @@ namespace VATAduana
             // 
             // TextBoxCUIT
             // 
-            this.TextBoxCUIT.Location = new System.Drawing.Point(89, 76);
+            this.TextBoxCUIT.Location = new System.Drawing.Point(149, 75);
             this.TextBoxCUIT.MaxLength = 11;
             this.TextBoxCUIT.Name = "TextBoxCUIT";
-            this.TextBoxCUIT.Size = new System.Drawing.Size(172, 20);
+            this.TextBoxCUIT.Size = new System.Drawing.Size(110, 20);
             this.TextBoxCUIT.TabIndex = 1;
             this.TextBoxCUIT.Text = "20000000036";
             // 
@@ -91,11 +91,11 @@ namespace VATAduana
             // metroLabel2
             // 
             this.metroLabel2.AutoSize = true;
-            this.metroLabel2.Location = new System.Drawing.Point(42, 76);
+            this.metroLabel2.Location = new System.Drawing.Point(33, 75);
             this.metroLabel2.Name = "metroLabel2";
-            this.metroLabel2.Size = new System.Drawing.Size(40, 19);
+            this.metroLabel2.Size = new System.Drawing.Size(110, 19);
             this.metroLabel2.TabIndex = 12;
-            this.metroLabel2.Text = "CUIT:";
+            this.metroLabel2.Text = "CUIT Exportador:";
             // 
             // metroLabel3
             // 
@@ -160,17 +160,6 @@ namespace VATAduana
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel1.VerticalScrollbarSize = 10;
             // 
-            // metroRadioButtonImpo
-            // 
-            this.metroRadioButtonImpo.AutoSize = true;
-            this.metroRadioButtonImpo.Location = new System.Drawing.Point(3, 4);
-            this.metroRadioButtonImpo.Name = "metroRadioButtonImpo";
-            this.metroRadioButtonImpo.Size = new System.Drawing.Size(88, 15);
-            this.metroRadioButtonImpo.Style = MetroFramework.MetroColorStyle.Yellow;
-            this.metroRadioButtonImpo.TabIndex = 2;
-            this.metroRadioButtonImpo.Text = "Importación";
-            this.metroRadioButtonImpo.UseSelectable = true;
-            // 
             // metroRadioButtonExpo
             // 
             this.metroRadioButtonExpo.AutoSize = true;
@@ -181,6 +170,17 @@ namespace VATAduana
             this.metroRadioButtonExpo.TabIndex = 3;
             this.metroRadioButtonExpo.Text = "Exportación";
             this.metroRadioButtonExpo.UseSelectable = true;
+            // 
+            // metroRadioButtonImpo
+            // 
+            this.metroRadioButtonImpo.AutoSize = true;
+            this.metroRadioButtonImpo.Location = new System.Drawing.Point(3, 4);
+            this.metroRadioButtonImpo.Name = "metroRadioButtonImpo";
+            this.metroRadioButtonImpo.Size = new System.Drawing.Size(88, 15);
+            this.metroRadioButtonImpo.Style = MetroFramework.MetroColorStyle.Yellow;
+            this.metroRadioButtonImpo.TabIndex = 2;
+            this.metroRadioButtonImpo.Text = "Importación";
+            this.metroRadioButtonImpo.UseSelectable = true;
             // 
             // formularioMOA
             // 

@@ -108,7 +108,7 @@ namespace VATAduana
                     }
                     else
                     {
-                        MetroMessageBox.Show(this, "Elija algun tipo de consulta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MetroMessageBox.Show(this, "Elija un tipo de consulta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
 
                 }
@@ -158,7 +158,7 @@ namespace VATAduana
             }
             else
             {
-                MetroMessageBox.Show(this, "Ingrese un COE valido", "Error",  MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MetroMessageBox.Show(this, "Ingrese un COE válido", "Error",  MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -196,8 +196,8 @@ namespace VATAduana
         {
             // Displays an OpenFileDialog so the user can select a Certificate.
             OpenFileDialog dialogoCertificado = new OpenFileDialog();
-            dialogoCertificado.Filter = "Certificate File|*.csv";
-            dialogoCertificado.Title = "Select a SCV File";
+            dialogoCertificado.Filter = "Archivo CSV|*.csv";
+            dialogoCertificado.Title = "Elija un archivo CSV";
             // Show the Dialog.
             // If the user clicked OK in the dialog and
             // a .CRT file was selected, open it.
@@ -301,7 +301,7 @@ namespace VATAduana
                 {
                     ELog.createTxtErrores(listaErroresCoe, "granos");
                     ExcelServiceGranos.ExcelCreateLiqPrimarias(ListaLiquidacionesPri, ListaLiquidacionesAjus, _LiqGranos.Codigos, _LiqGranos.Puertos, _LiqGranos.Actividades);
-                    MetroMessageBox.Show(this, "Excel creado exitosamente", "Success", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MetroMessageBox.Show(this, "Excel creado exitosamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 catch (Exception ex)
                 {
@@ -349,7 +349,7 @@ namespace VATAduana
                     {
                         ELog.createTxtErrores(listaErroresCoe, "granos");
                         ExcelServiceGranos.ExcelCreateLiqSecundarias(ListaLiquidacionesSec, ListaLiquidacionesAjus, _LiqGranos.Codigos, _LiqGranos.Puertos, _LiqGranos.Actividades);
-                        MetroMessageBox.Show(this, "Excel creado exitosamente", "Success", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MetroMessageBox.Show(this, "Excel creado exitosamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     catch (Exception ex)
                     {
