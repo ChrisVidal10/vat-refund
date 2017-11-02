@@ -11,7 +11,7 @@ namespace VATAduana
     class ExcelService
     {
 
-        public static void ExcelCreateEmbarques (List<string> destinaciones, List<wconsdeclaracion.DeclaracionDetalladaMOACaratula> caratula, List<wconsdeclaracion.DeclaracionDetalladaMOAEstado> estado)
+        public static void ExcelCreateEmbarques(List<string> destinaciones, List<wconsdeclaracion.DeclaracionDetalladaMOACaratula> caratula, List<wconsdeclaracion.DeclaracionDetalladaMOAEstado> estado, List<wconsdeclaracion.DetalladaItemsRta> items, List<List<wconsdeclaracion.SubItemMOADeclaracionDetalladaSubitem>> subItems, List<Asociacion> lstAsociaciones)
         {
             // Load Excel application
             Microsoft.Office.Interop.Excel.Application excel = new Microsoft.Office.Interop.Excel.Application();
@@ -21,6 +21,7 @@ namespace VATAduana
 
             // Create Worksheet from active sheet
             Microsoft.Office.Interop.Excel._Worksheet workSheet = excel.ActiveSheet;
+            workSheet.Name = "Caratula y Estado";
 
             // I created Application and Worksheet objects before try/catch,
             // so that i can close them in finnaly block.
@@ -92,7 +93,7 @@ namespace VATAduana
                     workSheet.Cells[row, "O"] = car.TotalBultos;
                     workSheet.Cells[row, "P"] = car.PesoBruto;
                     workSheet.Cells[row, "Q"] = car.PesoGuia;
-                    workSheet.Cells[row, "R"] = car.MotivoAnulacion; 
+                    workSheet.Cells[row, "R"] = car.MotivoAnulacion;
                     row++;
                 }
 
@@ -113,8 +114,153 @@ namespace VATAduana
                     row++;
                 }
 
+                //------------------------Hoja 2----------------------------------
+
+                excel.Sheets.Add();
+                //Agrego una hoja 
+                // Create Worksheet2 from active sheet, osea segunda hoja
+                Microsoft.Office.Interop.Excel._Worksheet workSheet2 = excel.ActiveSheet;
+                workSheet2.Name = "Items";
+
+                workSheet2.Cells[1, "A"] = "Destinacion";
+                workSheet2.Cells[1, "B"] = "Identificador Item";
+                workSheet2.Cells[1, "C"] = "Cantidad Estadistica";
+                workSheet2.Cells[1, "D"] = "Cantidad Unidad Declarada";
+                workSheet2.Cells[1, "E"] = "Codigo Pais Origen";
+                workSheet2.Cells[1, "F"] = "Codigo Pais Procedencia";
+                workSheet2.Cells[1, "G"] = "Codigo Unidad Declarada";
+                workSheet2.Cells[1, "H"] = "Codigo Unidad Estadistica";
+                workSheet2.Cells[1, "I"] = "Estado Uso Mercaderia";
+                workSheet2.Cells[1, "J"] = "Codigo Acuerdo"; 
+                workSheet2.Cells[1, "K"] = "Monto Ajuste Deducir Dolar";
+                workSheet2.Cells[1, "L"] = "Monto Ajuste Incluir Dolar";
+                workSheet2.Cells[1, "M"] = "Monto Fob Divisa";
+                workSheet2.Cells[1, "N"] = "Monto Insumos Importacion A Consumo";
+                workSheet2.Cells[1, "O"] = "Monto Insumos Importacion Temporal";
+                workSheet2.Cells[1, "P"] = "Monto Unitario";
+                workSheet2.Cells[1, "Q"] = "PosicionArancelariaSIM";
+
+                row = 2;
+                int index = 0;
+                //Indice para recorrer la lista de declaraciones
+
+                foreach (var listaItems in items)
+                //Para cada lista de items que tenemos guardadas en items    
+                {
+                    foreach (var item in listaItems.Items)
+                    //Vamos guardando cada item todos con el mismo identificador
+                    {
+                        workSheet2.Cells[row, "A"] = destinaciones[index];
+                        workSheet2.Cells[row, "B"] = item.IdentificadorItem;
+                        workSheet2.Cells[row, "C"] = item.CantidadEstadistica;
+                        workSheet2.Cells[row, "D"] = item.CantidadUnidadDeclarada;
+                        workSheet2.Cells[row, "E"] = item.CodigoPaisOrigen;
+                        workSheet2.Cells[row, "F"] = item.CodigoPaisProcedencia;
+                        workSheet2.Cells[row, "G"] = item.CodigoUnidadDeclarada;
+                        workSheet2.Cells[row, "H"] = item.CodigoUnidadEstadistica;
+                        workSheet2.Cells[row, "I"] = item.EstadoUsoMercaderia;
+                        workSheet2.Cells[row, "J"] = item.CodigoAcuerdo;
+                        workSheet2.Cells[row, "K"] = item.MontoAjusteDeducirDolar;
+                        workSheet2.Cells[row, "L"] = item.MontoAjusteIncluirDolar;
+                        workSheet2.Cells[row, "M"] = item.MontoFobDivisa;
+                        workSheet2.Cells[row, "N"] = item.MontoInsumosImportacionAConsumo;
+                        workSheet2.Cells[row, "O"] = item.MontoInsumosImportacionTemporal;
+                        workSheet2.Cells[row, "P"] = item.MontoUnitario;
+                        workSheet2.Cells[row, "Q"] = item.PosicionArancelariaSIM;
+                        row++;
+                    }
+                    index++;
+                    //Vamos avanzando el index para tener el siguiente identificador 
+                }
+
+                //------------------------Hoja 3----------------------------------
+
+                excel.Sheets.Add();
+                //Agrego una hoja 
+                // Create Worksheet2 from active sheet, osea segunda hoja
+                Microsoft.Office.Interop.Excel._Worksheet workSheet3 = excel.ActiveSheet;
+                workSheet3.Name = "SubItems";
+
+                workSheet3.Cells[1, "A"] = "Destinacion";
+                workSheet3.Cells[1, "B"] = "Identificador Item";
+                workSheet3.Cells[1, "C"] = "Sufijo Valor SubItem";
+                workSheet3.Cells[1, "D"] = "Numero SubItem";
+                workSheet3.Cells[1, "E"] = "Cantidad Declarada"; 
+                workSheet3.Cells[1, "F"] = "Cantidad Estadistica";
+                workSheet3.Cells[1, "G"] = "Codigo Unidad Declarada";
+                workSheet3.Cells[1, "H"] = "Codigo Unidad Estadistica";
+                workSheet3.Cells[1, "I"] = "Monto Fob Dolar";               
+                workSheet3.Cells[1, "J"] = "Precio Unitario";
+                
+
+                row = 2;
+                //Indice para recorrer la lista de declaraciones
+                int identificador = 0;
+
+
+                foreach (var listaSbItem in subItems)
+                //Cada posicion tiene una lista de subItems asociada a un identificador 
+                {
+                    foreach (var sbItem in listaSbItem)
+                    //Cada posicion tiene un subItem de ese identificador 
+                    {
+                        Asociacion auxAsociacion = new Asociacion();
+                        //Auxiliar de asociacion para poder llamar a la funcion que nos devuelve el id de item
+                        workSheet3.Cells[row, "A"] = destinaciones[identificador];
+                        workSheet3.Cells[row, "B"] = auxAsociacion.devolverIdentificadorItem(lstAsociaciones, destinaciones[identificador], sbItem.SufijoValor); ;
+                        //Llamamos a la funcion para tener el id de item asociado a ese subitem
+                        workSheet3.Cells[row, "C"] = sbItem.SufijoValor;
+                        workSheet3.Cells[row, "D"] = sbItem.NumeroSubItem;
+                        workSheet3.Cells[row, "E"] = sbItem.CantidadDeclarada;
+                        workSheet3.Cells[row, "F"] = sbItem.CantidadEstadistica;
+                        workSheet3.Cells[row, "G"] = sbItem.CodigoUnidadDeclarada;
+                        workSheet3.Cells[row, "H"] = sbItem.CodigoUnidadEstadistica;
+                        workSheet3.Cells[row, "I"] = sbItem.MontoFobDolar;
+                        workSheet3.Cells[row, "J"] = sbItem.PrecioUnitario;
+                        row++;
+                    }
+                    identificador++;
+                }
+
+
+                //foreach (var listasSbItem in subItems)
+                ////Cada posicion tiene listas de subItems asociadas a un identificador 
+                //{
+                //    foreach (var lstSbItem in listasSbItem)
+                //    //Cada posicion tiene una lista de subItems
+                //    {
+                //        foreach (var sbItem in lstSbItem.s Subitems)
+                //        //Cada posicion tiene un subItem que tenemos que cargar
+                //        {
+                //            if (lstSbItem.Subitems != null)
+                //            {
+                //                Asociacion auxAsociacion = new Asociacion();    
+                //                //Auxiliar de asociacion para poder llamar a la funcion que nos devuelve el id de item
+                //                workSheet3.Cells[row, "A"] = destinaciones[identificador];
+                //                workSheet3.Cells[row, "B"] = auxAsociacion.devolverIdentificadorItem(lstAsociaciones, destinaciones[identificador] , sbItem.SufijoValor); ;
+                //                //Llamamos a la funcion para tener el id de item asociado a ese subitem
+                //                workSheet3.Cells[row, "C"] = sbItem.SufijoValor;
+                //                workSheet3.Cells[row, "D"] = sbItem.NumeroSubItem;
+                //                workSheet3.Cells[row, "E"] = sbItem.CantidadDeclarada;
+                //                workSheet3.Cells[row, "F"] = sbItem.CantidadEstadistica;
+                //                workSheet3.Cells[row, "G"] = sbItem.CodigoUnidadDeclarada;
+                //                workSheet3.Cells[row, "H"] = sbItem.CodigoUnidadEstadistica;
+                //                workSheet3.Cells[row, "I"] = sbItem.MontoFobDolar;
+                //                workSheet3.Cells[row, "J"] = sbItem.PrecioUnitario;
+                //                row++;
+                //            }
+                //        }
+                //    }
+                //    identificador++;
+                //    //Incrementa destinacion porque se completo el recorrido de ese identificador
+                //}
+
+
+
                 // Apply some predefined styles for data to look nicely :)
                 workSheet.Range["A1"].AutoFormat(Microsoft.Office.Interop.Excel.XlRangeAutoFormat.xlRangeAutoFormatClassic1);
+                workSheet2.Range["A1"].AutoFormat(Microsoft.Office.Interop.Excel.XlRangeAutoFormat.xlRangeAutoFormatClassic1);
+                workSheet3.Range["A1"].AutoFormat(Microsoft.Office.Interop.Excel.XlRangeAutoFormat.xlRangeAutoFormatClassic1);
 
                 // Define filename
                 string fileName = string.Format(@"{0}\ExcelAduana.xlsx", Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory));
@@ -148,7 +294,7 @@ namespace VATAduana
             }
         }
 
-
+        
     }
 }
 

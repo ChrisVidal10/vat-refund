@@ -81,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Asociacion.cs" />
     <Compile Include="CertificadosX509Lib.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="ELog.cs" />
