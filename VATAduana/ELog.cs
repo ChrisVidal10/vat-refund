@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VATAduana
 {
@@ -15,7 +12,7 @@ namespace VATAduana
             string hora = System.DateTime.Now.ToString("HH:mm:ss");
             string fileName = string.Format(@"{0}\Log.txt", Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory));
 
-            // Chequeo si el archivo existe, si es asi, lo borro.
+            // Chequeo si el archivo existe, si es asi, lo borro para que no se agregue nada a lo ya escrito.
             if (File.Exists(fileName))
             {
                 File.Delete(fileName);
