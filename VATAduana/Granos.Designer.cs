@@ -69,7 +69,6 @@
             this.textBoxCUIT.Name = "textBoxCUIT";
             this.textBoxCUIT.Size = new System.Drawing.Size(168, 20);
             this.textBoxCUIT.TabIndex = 1;
-            this.textBoxCUIT.Text = "20223803491";
             // 
             // metroButtonCancelar
             // 

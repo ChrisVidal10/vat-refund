@@ -17,7 +17,7 @@
             {
                 components.Dispose();
             }
-            base.Dispose(disposing);
+            //base.Dispose(disposing);
         }
 
         #region Windows Form Designer generated code
@@ -36,7 +36,7 @@
             // metroTileLpg
             // 
             this.metroTileLpg.ActiveControl = null;
-            this.metroTileLpg.Location = new System.Drawing.Point(62, 74);
+            this.metroTileLpg.Location = new System.Drawing.Point(62, 89);
             this.metroTileLpg.Name = "metroTileLpg";
             this.metroTileLpg.PaintTileCount = false;
             this.metroTileLpg.Size = new System.Drawing.Size(170, 68);
@@ -52,13 +52,13 @@
             // metroTileAduana
             // 
             this.metroTileAduana.ActiveControl = null;
-            this.metroTileAduana.Location = new System.Drawing.Point(62, 157);
+            this.metroTileAduana.Location = new System.Drawing.Point(62, 179);
             this.metroTileAduana.Name = "metroTileAduana";
             this.metroTileAduana.PaintTileCount = false;
             this.metroTileAduana.Size = new System.Drawing.Size(170, 68);
             this.metroTileAduana.Style = MetroFramework.MetroColorStyle.Yellow;
             this.metroTileAduana.TabIndex = 1;
-            this.metroTileAduana.Text = "Aduana";
+            this.metroTileAduana.Text = "Aduana (Beta)";
             this.metroTileAduana.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.metroTileAduana.TileTextFontSize = MetroFramework.MetroTileTextSize.Tall;
             this.metroTileAduana.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;

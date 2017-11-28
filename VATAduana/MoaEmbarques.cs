@@ -68,8 +68,8 @@ namespace VATAduana
             //Completo parametro de tipo DetalleParametros
             objDetalleParametros.CodigoTipoOperacion = tipoOp;
             objDetalleParametros.CuitImportadorExportador = cuit;
-            objDetalleParametros.FechaOficializacionDesde = Convert.ToDateTime("2017-07-31T00:00:00-03:00"); //fechaInicio
-            objDetalleParametros.FechaOficializacionHasta = Convert.ToDateTime("2017-08-20T00:00:00-03:00");//fechaFin;
+            objDetalleParametros.FechaOficializacionDesde = fechaInicio;
+            objDetalleParametros.FechaOficializacionHasta = fechaFin;
             //Invoco el WS DetalladaListaDeclaraciones, si algo ocurre invocando el servicio lanzo una excepcion.
             try
             {

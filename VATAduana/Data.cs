@@ -6,17 +6,22 @@ using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.Windows.Forms;
 using System.Data;
+using System.IO;
 
 namespace VATAduana
 {
     class Data
     {
         private static SQLiteConnection con;
+        //static string fullPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "VATRefund\\Database");
+        //static string fullPathFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "VATRefund\\Database\\authbd.db");
 
         public static void Conexion()
         {
+            
             try
             {
+                CheckIfDataBaseExists();
                 con = new SQLiteConnection("Data Source=authbd.db;Version=3;New=False;Compress=True");
                 con.Open();
             }
@@ -24,6 +29,33 @@ namespace VATAduana
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private static void CheckIfDataBaseExists()
+        {
+           
+            if (!File.Exists("authbd.db"))//fullPathFile
+            {
+
+                try
+                {
+                    //if (!Directory.Exists(fullPath)) Directory.CreateDirectory(fullPath);
+                    SQLiteConnection.CreateFile("authbd.db");
+                    con = new SQLiteConnection("Data Source=authbd.db;Version=3;New=False;Compress=True");
+                    string commandString = "CREATE TABLE AUTHPETICION ( `ID` INTEGER PRIMARY KEY AUTOINCREMENT, `SOURCE` TEXT, `GLOBALID` TEXT, `UNIQUEID` TEXT, `GENERATIONTIME` TEXT, `EXPIRATIONTIME` TEXT, `SERVICE` TEXT, `TOKEN` TEXT, `SIGN` TEXT )";
+                    using (SQLiteCommand cmd = new SQLiteCommand(commandString, con))
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close(); 
+                    }
+                }
+                catch (SQLiteException ex)
+                {
+                    throw new Exception(ex.Message);                    
+                }
+
+            }       
         }
 
         public static void Desconexion()

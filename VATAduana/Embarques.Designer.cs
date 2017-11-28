@@ -55,20 +55,20 @@ namespace VATAduana
             // dateTimeInicio
             // 
             this.dateTimeInicio.Location = new System.Drawing.Point(88, 187);
-            this.dateTimeInicio.MaxDate = new System.DateTime(2017, 10, 13, 0, 0, 0, 0);
+            this.dateTimeInicio.MaxDate = new System.DateTime(2017, 11, 3, 0, 0, 0, 0);
             this.dateTimeInicio.Name = "dateTimeInicio";
             this.dateTimeInicio.Size = new System.Drawing.Size(148, 20);
             this.dateTimeInicio.TabIndex = 2;
-            this.dateTimeInicio.Value = new System.DateTime(2017, 10, 13, 0, 0, 0, 0);
+            this.dateTimeInicio.Value = new System.DateTime(2017, 11, 3, 0, 0, 0, 0);
             // 
             // dateTimeFin
             // 
             this.dateTimeFin.Location = new System.Drawing.Point(88, 215);
-            this.dateTimeFin.MaxDate = new System.DateTime(2017, 10, 13, 0, 0, 0, 0);
+            this.dateTimeFin.MaxDate = new System.DateTime(2017, 11, 3, 0, 0, 0, 0);
             this.dateTimeFin.Name = "dateTimeFin";
             this.dateTimeFin.Size = new System.Drawing.Size(148, 20);
             this.dateTimeFin.TabIndex = 3;
-            this.dateTimeFin.Value = new System.DateTime(2017, 10, 13, 0, 0, 0, 0);
+            this.dateTimeFin.Value = new System.DateTime(2017, 11, 3, 0, 0, 0, 0);
             // 
             // TextBoxCUIT
             // 
@@ -77,7 +77,6 @@ namespace VATAduana
             this.TextBoxCUIT.Name = "TextBoxCUIT";
             this.TextBoxCUIT.Size = new System.Drawing.Size(110, 20);
             this.TextBoxCUIT.TabIndex = 1;
-            this.TextBoxCUIT.Text = "20000000036";
             // 
             // metroLabel1
             // 
@@ -127,7 +126,7 @@ namespace VATAduana
             // 
             // metroButtonCancelar
             // 
-            this.metroButtonCancelar.Location = new System.Drawing.Point(173, 262);
+            this.metroButtonCancelar.Location = new System.Drawing.Point(183, 262);
             this.metroButtonCancelar.Name = "metroButtonCancelar";
             this.metroButtonCancelar.Size = new System.Drawing.Size(88, 30);
             this.metroButtonCancelar.TabIndex = 16;
@@ -186,7 +185,7 @@ namespace VATAduana
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(298, 321);
+            this.ClientSize = new System.Drawing.Size(309, 321);
             this.ControlBox = false;
             this.Controls.Add(this.metroPanel1);
             this.Controls.Add(this.metroLabel5);

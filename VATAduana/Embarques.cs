@@ -11,7 +11,6 @@ using System.Diagnostics;
 using System.Data.SQLite;
 using MetroFramework.Forms;
 using MetroFramework;
-using Newtonsoft.Json;
 using System.Threading;
 
 namespace VATAduana
